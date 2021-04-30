@@ -4,7 +4,7 @@ import java.awt.event.*;
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
 
-    Tank tank = new Tank(800, 600, Dir.DOWN);
+    Tank tank = new Tank(200, 200, Dir.DOWN);
 
     public TankFrame() {
         setVisible(true);
@@ -86,10 +86,17 @@ public class TankFrame extends Frame {
 
 
         private void setMainTankDir() {
-            if (bl) tank.setDir(Dir.LEFT);
-            if (br) tank.setDir(Dir.RIGHT);
-            if (bu) tank.setDir(Dir.UP);
-            if (bd) tank.setDir(Dir.DOWN);
+            //如果没有按下方向键，就静止
+            if (!br && !bl && !bu && !bd) {
+                tank.setMoving(false);
+            } else {
+                tank.setMoving(true);
+                if (bl) tank.setDir(Dir.LEFT);
+                if (br) tank.setDir(Dir.RIGHT);
+                if (bu) tank.setDir(Dir.UP);
+                if (bd) tank.setDir(Dir.DOWN);
+            }
+
 
         }
     }
