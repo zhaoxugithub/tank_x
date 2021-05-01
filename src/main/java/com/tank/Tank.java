@@ -1,9 +1,12 @@
+package com.tank;
+
+
 import java.awt.*;
 
 public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
-    private static final int speed = 10;
+    private static final int SPEED = 5;
     //判断坦克 是否移动，默认是静止
     private boolean moving = false;
 
@@ -30,20 +33,27 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!moving) return;
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
         g.fillRect(x, y, 50, 50);
+        g.setColor(color);
+        move();
+    }
+
+    private void move() {
+        if (!moving) return;
         switch (dir) {
             case LEFT:
-                x -= speed;
+                x -= SPEED;
                 break;
             case RIGHT:
-                x += speed;
+                x += SPEED;
                 break;
             case UP:
-                y -= speed;
+                y -= SPEED;
                 break;
             case DOWN:
-                y += speed;
+                y += SPEED;
                 break;
             default:
                 break;

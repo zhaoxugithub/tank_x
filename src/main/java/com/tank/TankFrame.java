@@ -1,3 +1,4 @@
+package com.tank;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -5,12 +6,15 @@ import java.awt.event.*;
 public class TankFrame extends Frame {
 
     Tank tank = new Tank(200, 200, Dir.DOWN);
+    Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
         setVisible(true);
         setResizable(false);
-        setTitle("Tank war");
-        setSize(800, 600);
+        setTitle("com.tank.Tank war");
+        setSize(GAME_WIDTH, GAME_HEIGHT);
 
         //添加键盘监听器
         addKeyListener(new MyKeyAdapter());
@@ -27,8 +31,26 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         //把画自己的逻辑放在tank里面，更加方便，提现了面向对象的封装性
         tank.paint(g);
+        bullet.paint(g);
     }
 
+
+    Image offScreenImage = null;
+
+    @Override
+    public void update(Graphics g) {
+
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics goffScreen = offScreenImage.getGraphics();
+        Color color = goffScreen.getColor();
+        goffScreen.setColor(Color.BLACK);
+        goffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        goffScreen.setColor(color);
+        paint(goffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
 
     class MyKeyAdapter extends KeyAdapter {
 
@@ -84,7 +106,6 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-
         private void setMainTankDir() {
             //如果没有按下方向键，就静止
             if (!br && !bl && !bu && !bd) {
@@ -96,8 +117,6 @@ public class TankFrame extends Frame {
                 if (bu) tank.setDir(Dir.UP);
                 if (bd) tank.setDir(Dir.DOWN);
             }
-
-
         }
     }
 }
