@@ -1,19 +1,22 @@
 package com.tank;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
 
-    Tank tank = new Tank(200, 200, Dir.DOWN);
-    Bullet bullet = new Bullet(300, 300, Dir.DOWN);
-
+    Tank tank = new Tank(200, 200, Dir.DOWN, this);
+    //子弹容器
+    List<Bullet> bulletList = new ArrayList<Bullet>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
         setVisible(true);
         setResizable(false);
-        setTitle("com.tank.Tank war");
+        setTitle("Tank war");
         setSize(GAME_WIDTH, GAME_HEIGHT);
 
         //添加键盘监听器
@@ -29,11 +32,17 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("打出子弹个数：" + bulletList.size(), 10, 60);
+        g.setColor(color);
+
         //把画自己的逻辑放在tank里面，更加方便，提现了面向对象的封装性
         tank.paint(g);
-        bullet.paint(g);
+        for (int i = 0; i < bulletList.size(); i++) {
+            bulletList.get(i).paint(g);
+        }
     }
-
 
     Image offScreenImage = null;
 
@@ -99,6 +108,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bd = false;
+                    break;
+                case KeyEvent.VK_Z:
+                    tank.fire();
                     break;
                 default:
                     break;
