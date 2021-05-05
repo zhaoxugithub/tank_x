@@ -1,5 +1,8 @@
 package com.tank;
 
+import com.tank.enums.Dir;
+import com.tank.enums.Group;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -8,10 +11,16 @@ import java.util.List;
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
 
-    Tank tank = new Tank(200, 200, Dir.DOWN, this);
+    public Tank tank = new Tank(200, 200, Dir.DOWN, this, Group.GOOD);
     //子弹容器
-    List<Bullet> bulletList = new ArrayList<Bullet>();
+    public List<Bullet> bulletList = new ArrayList<Bullet>();
+    //爆炸容器
+//    List<Explode> explodes = new ArrayList<Explode>();
+    public Explode explode = new Explode(-100, -100, null);
+    //坦克容器
+    public List<Tank> tanks = new ArrayList<Tank>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+
 
     public TankFrame() {
         setVisible(true);
@@ -33,14 +42,37 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         Color color = g.getColor();
-        g.setColor(Color.white);
+        g.setColor(Color.RED);
         g.drawString("打出子弹个数：" + bulletList.size(), 10, 60);
+        g.drawString("剩余敌方坦克：" + tanks.size(), 200, 60);
         g.setColor(color);
 
         //把画自己的逻辑放在tank里面，更加方便，提现了面向对象的封装性
+
+        //生产己方坦克
         tank.paint(g);
+
+        //生成子弹数量
         for (int i = 0; i < bulletList.size(); i++) {
             bulletList.get(i).paint(g);
+        }
+
+        //生成敌方坦克个数
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
+        }
+
+        //生成爆炸类
+//        for (int i = 0; i < explodes.size(); i++) {
+//            explodes.get(i).paint(g);
+//        }
+        explode.paint(g);
+
+        //判断子弹和坦克是否发生碰撞
+        for (int i = 0; i < bulletList.size(); i++) {
+            for (int j = 0; j < tanks.size(); j++) {
+                bulletList.get(i).collideWith(tanks.get(j));
+            }
         }
     }
 
