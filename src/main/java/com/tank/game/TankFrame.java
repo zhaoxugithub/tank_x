@@ -1,7 +1,8 @@
-package com.tank;
+package com.tank.game;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
+import com.tank.util.Audio;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,11 +16,11 @@ public class TankFrame extends Frame {
     //子弹容器
     public List<Bullet> bulletList = new ArrayList<Bullet>();
     //爆炸容器
-//    List<Explode> explodes = new ArrayList<Explode>();
-    public Explode explode = new Explode(-100, -100, null);
+    List<Explode> explodes = new ArrayList<Explode>();
+//    public Explode explode = new Explode(-100, -100, null);
     //坦克容器
     public List<Tank> tanks = new ArrayList<Tank>();
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    static final int GAME_WIDTH = 1200, GAME_HEIGHT = 800;
 
 
     public TankFrame() {
@@ -63,10 +64,10 @@ public class TankFrame extends Frame {
         }
 
         //生成爆炸类
-//        for (int i = 0; i < explodes.size(); i++) {
-//            explodes.get(i).paint(g);
-//        }
-        explode.paint(g);
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+
 
         //判断子弹和坦克是否发生碰撞
         for (int i = 0; i < bulletList.size(); i++) {
@@ -104,6 +105,7 @@ public class TankFrame extends Frame {
         public void keyPressed(KeyEvent e) {
 
             int keyCode = e.getKeyCode();
+
             switch (keyCode) {
 
                 case KeyEvent.VK_LEFT:
@@ -122,6 +124,7 @@ public class TankFrame extends Frame {
                     break;
             }
             setMainTankDir();
+            new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
         }
 
         @Override

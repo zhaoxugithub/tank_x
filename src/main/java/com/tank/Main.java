@@ -1,9 +1,9 @@
-package com.tank.main;
+package com.tank;
 
-import com.tank.Tank;
-import com.tank.TankFrame;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
+import com.tank.game.Tank;
+import com.tank.game.TankFrame;
 
 public class Main {
 
@@ -12,7 +12,7 @@ public class Main {
         TankFrame tankFrame = new TankFrame();
 
         for (int i = 0; i < 10; i++) {
-            tankFrame.tanks.add(new Tank(100 + i * 50, 400, Dir.DOWN, tankFrame, Group.BAD));
+            tankFrame.tanks.add(new Tank(100 + i * 80, 400, Dir.DOWN, tankFrame, Group.BAD));
         }
 
         while (true) {

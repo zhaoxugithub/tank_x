@@ -1,4 +1,4 @@
-package com.tank;
+package com.tank.game;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
@@ -15,8 +15,11 @@ public class Bullet {
     private Dir dir;
     private boolean isLive = true;
 
-    public static int WIDTH = ResourceManager.bulletL.getWidth();
-    public static int HEIGHT = ResourceManager.bulletL.getHeight();
+    public static int GOODWIDTH = ResourceManager.goodBulletD.getWidth();
+    public static int GOODHEIGHT = ResourceManager.goodBulletD.getHeight();
+
+    public static int BADWIDTH = ResourceManager.badBulletD.getWidth();
+    public static int BADHEIGHT = ResourceManager.badBulletD.getHeight();
 
     TankFrame tf = null;
 
@@ -38,16 +41,16 @@ public class Bullet {
 
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceManager.bulletL, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletL : ResourceManager.badBulletL, this.x, this.y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.bulletR, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletR : ResourceManager.badBulletR, this.x, this.y, null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.bulletU, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletU : ResourceManager.badBulletU, this.x, this.y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.bulletD, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletD : ResourceManager.badBulletD, this.x, this.y, null);
                 break;
             default:
                 break;
@@ -86,8 +89,8 @@ public class Bullet {
     public void collideWith(Tank tank) {
 
         if (this.group == tank.getGroup()) return;
-        Rectangle bulletRectangle = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle tankRectangle = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+        Rectangle bulletRectangle = new Rectangle(this.x, this.y, BADWIDTH, BADHEIGHT);
+        Rectangle tankRectangle = new Rectangle(tank.getX(), tank.getY(), Tank.BADWIDTH, Tank.BADHEIGHT);
 
         //如果子弹和坦克繁盛碰撞
         if (bulletRectangle.intersects(tankRectangle)) {
@@ -96,9 +99,10 @@ public class Bullet {
             tank.die();
             this.die();
 
-            int ex = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int ey = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tf.explode = new Explode(ex, ey, tf);
+            int ex = tank.getX() + Tank.BADWIDTH / 2 - Explode.WIDTH / 2;
+            int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
+
+            tf.explodes.add(new Explode(ex, ey, tf));
 
         }
     }

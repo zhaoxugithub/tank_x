@@ -1,4 +1,4 @@
-package com.tank;
+package com.tank.game;
 
 import com.tank.util.ResourceManager;
 
