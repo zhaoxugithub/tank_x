@@ -10,9 +10,6 @@ import javax.sound.sampled.SourceDataLine;
 
 /**
  * 声音加载
- *
- * @Date 2021/3/18 17:00:09
- * @Author mashuai
  */
 public class Audio {
 

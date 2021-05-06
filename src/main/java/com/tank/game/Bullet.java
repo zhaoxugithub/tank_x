@@ -3,6 +3,7 @@ package com.tank.game;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.util.Audio;
+import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 public class Bullet {
 
     //子弹速度
-    private static final int SPEED = 10;
+    private static final int SPEED = ConfigUtil.getInteger("bulletSpeed");
     private int x, y;
     private Dir dir;
     private boolean isLive = true;
@@ -21,6 +22,7 @@ public class Bullet {
     public static int BADWIDTH = ResourceManager.badBulletD.getWidth();
     public static int BADHEIGHT = ResourceManager.badBulletD.getHeight();
 
+    public Rectangle rectangle = new Rectangle();
     TankFrame tf = null;
 
     private Group group = Group.BAD;
@@ -31,6 +33,11 @@ public class Bullet {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = BADWIDTH;
+        rectangle.height = BADHEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -79,6 +86,9 @@ public class Bullet {
         if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
             this.isLive = false;
         }
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     public void die() {
@@ -89,11 +99,9 @@ public class Bullet {
     public void collideWith(Tank tank) {
 
         if (this.group == tank.getGroup()) return;
-        Rectangle bulletRectangle = new Rectangle(this.x, this.y, BADWIDTH, BADHEIGHT);
-        Rectangle tankRectangle = new Rectangle(tank.getX(), tank.getY(), Tank.BADWIDTH, Tank.BADHEIGHT);
 
         //如果子弹和坦克繁盛碰撞
-        if (bulletRectangle.intersects(tankRectangle)) {
+        if (rectangle.intersects(tank.rectangle)) {
 
             new Thread(() -> new Audio("audio/explode.wav").play()).start();
             tank.die();

@@ -4,6 +4,7 @@ package com.tank.game;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.util.Audio;
+import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ public class Tank {
     //坦克方向
     private Dir dir = Dir.DOWN;
     //坦克速度，步进
-    private static final int SPEED = 5;
+    private static final int SPEED = ConfigUtil.getInteger("tankSpeed");
     //判断坦克 是否移动，默认是静止
     private boolean moving = true;
 
@@ -28,6 +29,8 @@ public class Tank {
 
     public static int BADWIDTH = ResourceManager.badTankL.getWidth();
     public static int BADHEIGHT = ResourceManager.badTankL.getHeight();
+
+    public Rectangle rectangle = new Rectangle();
 
     //生产随机数
     private Random random = new Random();
@@ -74,6 +77,11 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = BADWIDTH;
+        rectangle.height = BADHEIGHT;
     }
 
     public boolean isMoving() {
@@ -119,7 +127,6 @@ public class Tank {
 
     private void move() {
 
-
         if (!moving) return;
         switch (dir) {
             case LEFT:
@@ -143,6 +150,9 @@ public class Tank {
 
         //坦克开除边界检测
         boundsCheck();
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void boundsCheck() {

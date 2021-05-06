@@ -3,6 +3,7 @@ package com.tank.game;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.util.Audio;
+import com.tank.util.ConfigUtil;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -16,11 +17,11 @@ public class TankFrame extends Frame {
     //子弹容器
     public List<Bullet> bulletList = new ArrayList<Bullet>();
     //爆炸容器
-    List<Explode> explodes = new ArrayList<Explode>();
-//    public Explode explode = new Explode(-100, -100, null);
+    public List<Explode> explodes = new ArrayList<Explode>();
     //坦克容器
     public List<Tank> tanks = new ArrayList<Tank>();
-    static final int GAME_WIDTH = 1200, GAME_HEIGHT = 800;
+
+    static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
 
 
     public TankFrame() {
