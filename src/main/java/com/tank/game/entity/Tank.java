@@ -1,16 +1,17 @@
-package com.tank.game;
+package com.tank.game.entity;
 
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
-import com.tank.util.Audio;
+import com.tank.game.DefaultFireStrategy;
+import com.tank.game.FireStrategy;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends BaseTank {
     //坦克位置
     private int x, y;
     //坦克方向

@@ -1,4 +1,4 @@
-package com.tank.game;
+package com.tank.game.entity;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;

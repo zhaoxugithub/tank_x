@@ -2,6 +2,8 @@ package com.tank.game;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
+import com.tank.game.entity.Bullet;
+import com.tank.game.entity.Tank;
 import com.tank.util.Audio;
 
 public class FourFireStrategy implements FireStrategy {

@@ -2,8 +2,8 @@ package com.tank;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
-import com.tank.game.Tank;
-import com.tank.game.TankFrame;
+import com.tank.game.entity.Tank;
+import com.tank.game.entity.TankFrame;
 import com.tank.util.ConfigUtil;
 
 public class Main {

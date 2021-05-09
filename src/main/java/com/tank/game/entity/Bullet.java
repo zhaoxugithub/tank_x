@@ -1,4 +1,4 @@
-package com.tank.game;
+package com.tank.game.entity;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
@@ -8,7 +8,7 @@ import com.tank.util.ResourceManager;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends BaseBullet {
 
     //子弹速度
     private static final int SPEED = ConfigUtil.getInteger("bulletSpeed");
@@ -40,6 +40,7 @@ public class Bullet {
         rectangle.height = BADHEIGHT;
     }
 
+    @Override
     public void paint(Graphics g) {
 
         if (!isLive) {
@@ -96,6 +97,7 @@ public class Bullet {
     }
 
     //坦克和子弹的碰撞
+    @Override
     public void collideWith(Tank tank) {
 
         if (this.group == tank.getGroup()) return;
