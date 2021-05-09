@@ -14,7 +14,7 @@ public class Tank {
     //坦克位置
     private int x, y;
     //坦克方向
-    private Dir dir = Dir.DOWN;
+    public Dir dir = Dir.DOWN;
     //坦克速度，步进
     private static final int SPEED = ConfigUtil.getInteger("tankSpeed");
     //判断坦克 是否移动，默认是静止
@@ -38,6 +38,8 @@ public class Tank {
     TankFrame tf = null;
 
     private Group group = Group.BAD;
+
+    private FireStrategy fs = null;
 
     public void setGroup(Group group) {
         this.group = group;
@@ -82,6 +84,21 @@ public class Tank {
         rectangle.y = this.y;
         rectangle.width = BADWIDTH;
         rectangle.height = BADHEIGHT;
+
+        if (this.getGroup() == Group.GOOD) {
+            String goodFs = ConfigUtil.getString("goodFS");
+            try {
+                fs = (FireStrategy)Class.forName(goodFs).newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        } else {
+            fs = new DefaultFireStrategy();
+        }
     }
 
     public boolean isMoving() {
@@ -167,19 +184,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bx, by;
-        if (this.group == Group.GOOD) {
-            bx = this.x + Tank.GOODWIDTH / 2 - Bullet.GOODWIDTH / 2;
-            by = this.y + Tank.GOODHEIGHT / 2 - Bullet.GOODHEIGHT / 2;
-        } else {
-            bx = this.x + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
-            by = this.y + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
-        }
-
-        Bullet bullet = new Bullet(bx, by, this.dir, tf, this.group);
-        tf.bulletList.add(bullet);
-
-        if (this.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+        fs.fire(this);
     }
 
     public void die() {

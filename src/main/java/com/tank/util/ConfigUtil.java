@@ -4,6 +4,9 @@ package com.tank.util;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * 单利模式
+ */
 public class ConfigUtil {
     static Properties props = new Properties();
 
@@ -14,6 +17,8 @@ public class ConfigUtil {
             e.printStackTrace();
         }
     }
+
+    private ConfigUtil(){}
 
     public static Object get(String key) {
         if (props == null) return null;

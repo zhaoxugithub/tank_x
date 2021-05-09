@@ -23,7 +23,6 @@ public class TankFrame extends Frame {
 
     static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
 
-
     public TankFrame() {
         setVisible(true);
         setResizable(false);
