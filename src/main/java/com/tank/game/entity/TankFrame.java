@@ -2,6 +2,7 @@ package com.tank.game.entity;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
+import com.tank.game.factory.*;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 
@@ -15,13 +16,19 @@ public class TankFrame extends Frame {
 
     public Tank tank = new Tank(200, 200, Dir.DOWN, this, Group.GOOD);
     //子弹容器
-    public List<Bullet> bulletList = new ArrayList<Bullet>();
+    public List<BaseBullet> bulletList = new ArrayList<BaseBullet>();
     //爆炸容器
-    public List<Explode> explodes = new ArrayList<Explode>();
+    public List<BaseExplode> explodes = new ArrayList<BaseExplode>();
     //坦克容器
     public List<Tank> tanks = new ArrayList<Tank>();
 
     static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
+
+    //定义抽象工厂,采用默认工厂生产默认的
+    public GameFactory gameFactory = new DefaultFactory();
+    //如果想要换成其他的爆炸形式，可以采用以下的工厂
+//    public GameFactory gameFactory = new RectFactory();
+
 
     public TankFrame() {
         setVisible(true);

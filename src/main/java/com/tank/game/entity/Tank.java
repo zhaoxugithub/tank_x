@@ -5,6 +5,7 @@ import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.game.DefaultFireStrategy;
 import com.tank.game.FireStrategy;
+import com.tank.game.factory.BaseTank;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
@@ -36,7 +37,7 @@ public class Tank extends BaseTank {
     //生产随机数
     private Random random = new Random();
 
-    TankFrame tf = null;
+    public TankFrame tf = null;
 
     private Group group = Group.BAD;
 
@@ -98,7 +99,7 @@ public class Tank extends BaseTank {
                 e.printStackTrace();
             }
         } else {
-            fs = new DefaultFireStrategy();
+             fs = new DefaultFireStrategy();
         }
     }
 

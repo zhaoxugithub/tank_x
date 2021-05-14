@@ -1,17 +1,17 @@
-package com.tank.game.entity;
+package com.tank.game.factory;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
-import com.tank.game.factory.BaseBullet;
-import com.tank.game.factory.BaseExplode;
+import com.tank.game.entity.Explode;
+import com.tank.game.entity.Tank;
+import com.tank.game.entity.TankFrame;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
-
+public class RectBullet extends BaseBullet {
     //子弹速度
     private static final int SPEED = ConfigUtil.getInteger("bulletSpeed");
     private int x, y;
@@ -29,7 +29,7 @@ public class Bullet extends BaseBullet {
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public RectBullet(int x, int y, Dir dir, TankFrame tf, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -50,23 +50,28 @@ public class Bullet extends BaseBullet {
         if (!isLive) {
             this.tf.bulletList.remove(this);
         }
+//
+//        switch (dir) {
+//            case LEFT:
+//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletL : ResourceManager.badBulletL, this.x, this.y, null);
+//                break;
+//            case RIGHT:
+//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletR : ResourceManager.badBulletR, this.x, this.y, null);
+//                break;
+//            case UP:
+//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletU : ResourceManager.badBulletU, this.x, this.y, null);
+//                break;
+//            case DOWN:
+//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletD : ResourceManager.badBulletD, this.x, this.y, null);
+//                break;
+//            default:
+//                break;
+//        }
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x,y,10,10);
+        g.setColor(color);
 
-        switch (dir) {
-            case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletL : ResourceManager.badBulletL, this.x, this.y, null);
-                break;
-            case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletR : ResourceManager.badBulletR, this.x, this.y, null);
-                break;
-            case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletU : ResourceManager.badBulletU, this.x, this.y, null);
-                break;
-            case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletD : ResourceManager.badBulletD, this.x, this.y, null);
-                break;
-            default:
-                break;
-        }
         move();
     }
 
@@ -88,9 +93,9 @@ public class Bullet extends BaseBullet {
                 break;
         }
 
-        if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
-            this.isLive = false;
-        }
+//        if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
+//            this.isLive = false;
+//        }
 
         rectangle.x = this.x;
         rectangle.y = this.y;

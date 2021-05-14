@@ -2,22 +2,21 @@ package com.tank.game.factory;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
-import com.tank.game.entity.*;
+import com.tank.game.entity.TankFrame;
 
-public class DefaultFactory extends GameFactory {
-
+public class RectFactory extends GameFactory {
     @Override
     public BaseTank createTank(int x, int y, Dir dir, TankFrame tf, Group group) {
-        return new Tank(x, y, dir, tf, group);
+        return null;
     }
 
     @Override
     public BaseBullet createBullet(int x, int y, Dir dir, TankFrame tf, Group group) {
-        return new Bullet(x, y, dir, tf, group);
+        return new RectBullet(x, y, dir, tf, group);
     }
 
     @Override
     public BaseExplode createExplode(int x, int y, TankFrame tankFrame) {
-        return new Explode(x, y, tankFrame);
+        return new RectExplode(x, y, tankFrame);
     }
 }

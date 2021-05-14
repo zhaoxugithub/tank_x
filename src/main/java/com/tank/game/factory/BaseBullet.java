@@ -1,4 +1,6 @@
-package com.tank.game.entity;
+package com.tank.game.factory;
+
+import com.tank.game.entity.Tank;
 
 import java.awt.*;
 

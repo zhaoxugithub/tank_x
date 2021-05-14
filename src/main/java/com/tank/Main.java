@@ -19,7 +19,7 @@ public class Main {
         }
 
         while (true) {
-            Thread.sleep(50);
+            Thread.sleep(25);
             tankFrame.repaint();
         }
     }
