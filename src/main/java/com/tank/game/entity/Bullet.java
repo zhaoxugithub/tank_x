@@ -2,15 +2,13 @@ package com.tank.game.entity;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
-import com.tank.game.factory.BaseBullet;
-import com.tank.game.factory.BaseExplode;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class Bullet {
 
     //子弹速度
     private static final int SPEED = ConfigUtil.getInteger("bulletSpeed");
@@ -113,8 +111,8 @@ public class Bullet extends BaseBullet {
 
             int ex = tank.getX() + Tank.BADWIDTH / 2 - Explode.WIDTH / 2;
             int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
-            BaseExplode explode = tf.gameFactory.createExplode(ex, ey, tf);
-            tf.explodes.add(explode);
+//            BaseExplode explode = tf.gameFactory.createExplode(ex, ey, tf);
+            tf.explodes.add(new Explode(ex, ey, tf));
 
         }
     }

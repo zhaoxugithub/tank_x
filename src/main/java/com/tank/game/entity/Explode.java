@@ -1,6 +1,5 @@
 package com.tank.game.entity;
 
-import com.tank.game.factory.BaseExplode;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
@@ -8,7 +7,7 @@ import java.awt.*;
 /**
  * 爆炸类
  */
-public class Explode extends BaseExplode {
+public class Explode {
 
     private int x, y;
     public static int WIDTH = ResourceManager.explodes[0].getWidth();

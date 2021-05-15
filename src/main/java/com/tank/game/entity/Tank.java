@@ -5,8 +5,6 @@ import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.game.DefaultFireStrategy;
 import com.tank.game.FireStrategy;
-import com.tank.game.factory.BaseTank;
-import com.tank.game.factory.RectBullet;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
@@ -17,7 +15,7 @@ import java.util.Random;
 /**
  * 测试
  */
-public class Tank extends BaseTank {
+public class Tank{
     //坦克位置
     private int x, y;
     //坦克方向
@@ -203,7 +201,7 @@ public class Tank extends BaseTank {
             bx = this.getX() + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
             by = this.getY() + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
         }
-        new RectBullet(bx, by, this.dir, this.tf, this.getGroup());
+        new Bullet(bx, by, this.dir, this.tf, this.getGroup());
         if (this.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
 
