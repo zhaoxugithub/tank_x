@@ -14,6 +14,9 @@ import com.tank.util.ResourceManager;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * 测试
+ */
 public class Tank extends BaseTank {
     //坦克位置
     private int x, y;
