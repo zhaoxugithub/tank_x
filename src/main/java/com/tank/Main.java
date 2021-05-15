@@ -13,7 +13,6 @@ public class Main {
         TankFrame tankFrame = new TankFrame();
         int tankNum = ConfigUtil.getInteger("tankNum");
 
-
         for (int i = 0; i < tankNum; i++) {
             tankFrame.tanks.add(new Tank(100 + i * 80, 400, Dir.DOWN, tankFrame, Group.BAD));
         }

@@ -44,7 +44,6 @@ public class Bullet extends BaseBullet {
         tf.bulletList.add(this);
     }
 
-    @Override
     public void paint(Graphics g) {
 
         if (!isLive) {
@@ -101,7 +100,6 @@ public class Bullet extends BaseBullet {
     }
 
     //坦克和子弹的碰撞
-    @Override
     public void collideWith(Tank tank) {
 
         if (this.group == tank.getGroup()) return;
