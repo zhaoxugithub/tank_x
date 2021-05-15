@@ -22,12 +22,12 @@ public class TankFrame extends Frame {
     //坦克容器
     public List<Tank> tanks = new ArrayList<Tank>();
 
-    static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
+    public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
 
     //定义抽象工厂,采用默认工厂生产默认的
-    public GameFactory gameFactory = new DefaultFactory();
+//    public GameFactory gameFactory = new DefaultFactory();
     //如果想要换成其他的爆炸形式，可以采用以下的工厂
-//    public GameFactory gameFactory = new RectFactory();
+    public GameFactory gameFactory = new RectFactory();
 
 
     public TankFrame() {

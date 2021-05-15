@@ -6,6 +6,8 @@ import com.tank.enums.Group;
 import com.tank.game.DefaultFireStrategy;
 import com.tank.game.FireStrategy;
 import com.tank.game.factory.BaseTank;
+import com.tank.game.factory.RectBullet;
+import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
@@ -90,7 +92,7 @@ public class Tank extends BaseTank {
         if (this.getGroup() == Group.GOOD) {
             String goodFs = ConfigUtil.getString("goodFS");
             try {
-                fs = (FireStrategy)Class.forName(goodFs).newInstance();
+                fs = (FireStrategy) Class.forName(goodFs).newInstance();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -99,7 +101,7 @@ public class Tank extends BaseTank {
                 e.printStackTrace();
             }
         } else {
-             fs = new DefaultFireStrategy();
+            fs = new DefaultFireStrategy();
         }
     }
 
@@ -185,8 +187,21 @@ public class Tank extends BaseTank {
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
+    /**
+     * 为了方便调试工厂模式，暂时停用策略模式，注释掉fs.fire()方法，将默认的fire方法拷贝到下面的fire方法中
+     */
     public void fire() {
-        fs.fire(this);
+//        fs.fire(this);
+        int bx, by;
+        if (this.getGroup() == Group.GOOD) {
+            bx = this.getX() + Tank.GOODWIDTH / 2 - Bullet.GOODWIDTH / 2;
+            by = this.getY() + Tank.GOODHEIGHT / 2 - Bullet.GOODHEIGHT / 2;
+        } else {
+            bx = this.getX() + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
+            by = this.getY() + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
+        }
+        new RectBullet(bx, by, this.dir, this.tf, this.getGroup());
+        if (this.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
 
     public void die() {

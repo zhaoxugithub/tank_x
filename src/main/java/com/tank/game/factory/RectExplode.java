@@ -27,7 +27,6 @@ public class RectExplode extends BaseExplode {
     @Override
     public void paint(Graphics g) {
         if (!living) return;
-//        g.drawImage(ResourceManager.explodes[step++], this.x, this.y, null);
         Color color = g.getColor();
         g.setColor(Color.red);
         g.fillRect(x, y, 10 * step, 10 * step);

@@ -50,28 +50,10 @@ public class RectBullet extends BaseBullet {
         if (!isLive) {
             this.tf.bulletList.remove(this);
         }
-//
-//        switch (dir) {
-//            case LEFT:
-//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletL : ResourceManager.badBulletL, this.x, this.y, null);
-//                break;
-//            case RIGHT:
-//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletR : ResourceManager.badBulletR, this.x, this.y, null);
-//                break;
-//            case UP:
-//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletU : ResourceManager.badBulletU, this.x, this.y, null);
-//                break;
-//            case DOWN:
-//                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletD : ResourceManager.badBulletD, this.x, this.y, null);
-//                break;
-//            default:
-//                break;
-//        }
         Color color = g.getColor();
         g.setColor(Color.YELLOW);
-        g.fillRect(x,y,10,10);
+        g.fillRect(x, y, 10, 10);
         g.setColor(color);
-
         move();
     }
 
@@ -93,9 +75,9 @@ public class RectBullet extends BaseBullet {
                 break;
         }
 
-//        if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
-//            this.isLive = false;
-//        }
+        if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
+            this.isLive = false;
+        }
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -122,7 +104,6 @@ public class RectBullet extends BaseBullet {
             int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
             BaseExplode explode = tf.gameFactory.createExplode(ex, ey, tf);
             tf.explodes.add(explode);
-
         }
     }
 }
