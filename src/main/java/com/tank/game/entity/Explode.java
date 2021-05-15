@@ -13,16 +13,16 @@ public class Explode {
     public static int WIDTH = ResourceManager.explodes[0].getWidth();
     public static int HEIGHT = ResourceManager.explodes[0].getHeight();
 
-    TankFrame tankFrame = null;
+    GameModel gameModel;
 
     private boolean living = true;
 
     private int step = 0;
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
     }
 
     public void paint(Graphics g) {

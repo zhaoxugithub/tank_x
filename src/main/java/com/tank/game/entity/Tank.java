@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * 测试
  */
-public class Tank{
+public class Tank {
     //坦克位置
     private int x, y;
     //坦克方向
@@ -40,7 +40,7 @@ public class Tank{
     //生产随机数
     private Random random = new Random();
 
-    public TankFrame tf = null;
+    public GameModel gameModel;
 
     private Group group = Group.BAD;
 
@@ -78,11 +78,11 @@ public class Tank{
         return y;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public Tank(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gameModel = gameModel;
         this.group = group;
 
         rectangle.x = this.x;
@@ -126,7 +126,7 @@ public class Tank{
     public void paint(Graphics g) {
 
         if (!isLiving()) {
-            tf.tanks.remove(this);
+            gameModel.tanks.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -201,7 +201,7 @@ public class Tank{
             bx = this.getX() + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
             by = this.getY() + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
         }
-        new Bullet(bx, by, this.dir, this.tf, this.getGroup());
+        new Bullet(bx, by, this.dir, gameModel, this.getGroup());
         if (this.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
 

@@ -13,20 +13,10 @@ import java.util.List;
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
 
-    public Tank tank = new Tank(200, 200, Dir.DOWN, this, Group.GOOD);
-    //子弹容器
-    public List<Bullet> bulletList = new ArrayList<Bullet>();
-    //爆炸容器
-    public List<Explode> explodes = new ArrayList<Explode>();
-    //坦克容器
-    public List<Tank> tanks = new ArrayList<Tank>();
+    //添加一个门面成员对象，后面专门和门面成员对象打交道
+    public GameModel gameModel = new GameModel();
 
     public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
-
-    //定义抽象工厂,采用默认工厂生产默认的
-//    public GameFactory gameFactory = new DefaultFactory();
-    //如果想要换成其他的爆炸形式，可以采用以下的工厂
-//    public GameFactory gameFactory = new RectFactory();
 
 
     public TankFrame() {
@@ -48,39 +38,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.RED);
-        g.drawString("打出子弹个数：" + bulletList.size(), 10, 60);
-        g.drawString("剩余敌方坦克：" + tanks.size(), 200, 60);
-        g.setColor(color);
-
-        //把画自己的逻辑放在tank里面，更加方便，提现了面向对象的封装性
-
-        //生产己方坦克
-        tank.paint(g);
-
-        //生成子弹数量
-        for (int i = 0; i < bulletList.size(); i++) {
-            bulletList.get(i).paint(g);
-        }
-
-        //生成敌方坦克个数
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-
-        //生成爆炸类
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-
-
-        //判断子弹和坦克是否发生碰撞
-        for (int i = 0; i < bulletList.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bulletList.get(i).collideWith(tanks.get(j));
-            }
-        }
+        gameModel.paint(g);
     }
 
     Image offScreenImage = null;
@@ -106,6 +64,7 @@ public class TankFrame extends Frame {
         boolean br = false;
         boolean bu = false;
         boolean bd = false;
+
 
         @Override
         public void keyPressed(KeyEvent e) {
@@ -151,7 +110,7 @@ public class TankFrame extends Frame {
                     bd = false;
                     break;
                 case KeyEvent.VK_Z:
-                    tank.fire();
+                    gameModel.getMainTank().fire();
                     break;
                 default:
                     break;
@@ -160,15 +119,17 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
+
+            Tank mainTank = gameModel.getMainTank();
             //如果没有按下方向键，就静止
             if (!br && !bl && !bu && !bd) {
-                tank.setMoving(false);
+                mainTank.setMoving(false);
             } else {
-                tank.setMoving(true);
-                if (bl) tank.setDir(Dir.LEFT);
-                if (br) tank.setDir(Dir.RIGHT);
-                if (bu) tank.setDir(Dir.UP);
-                if (bd) tank.setDir(Dir.DOWN);
+                mainTank.setMoving(true);
+                if (bl) mainTank.setDir(Dir.LEFT);
+                if (br) mainTank.setDir(Dir.RIGHT);
+                if (bu) mainTank.setDir(Dir.UP);
+                if (bd) mainTank.setDir(Dir.DOWN);
             }
         }
     }

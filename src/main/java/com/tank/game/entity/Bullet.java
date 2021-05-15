@@ -23,15 +23,16 @@ public class Bullet {
     public static int BADHEIGHT = ResourceManager.badBulletD.getHeight();
 
     public Rectangle rectangle = new Rectangle();
-    TankFrame tf = null;
+
+    public GameModel gameModel;
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public Bullet(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gameModel = gameModel;
         this.group = group;
 
         rectangle.x = this.x;
@@ -39,13 +40,13 @@ public class Bullet {
         rectangle.width = BADWIDTH;
         rectangle.height = BADHEIGHT;
 
-        tf.bulletList.add(this);
+        gameModel.bulletList.add(this);
     }
 
     public void paint(Graphics g) {
 
         if (!isLive) {
-            this.tf.bulletList.remove(this);
+            this.gameModel.bulletList.remove(this);
         }
 
         switch (dir) {
@@ -85,7 +86,7 @@ public class Bullet {
                 break;
         }
 
-        if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
             this.isLive = false;
         }
 
@@ -111,8 +112,7 @@ public class Bullet {
 
             int ex = tank.getX() + Tank.BADWIDTH / 2 - Explode.WIDTH / 2;
             int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
-//            BaseExplode explode = tf.gameFactory.createExplode(ex, ey, tf);
-            tf.explodes.add(new Explode(ex, ey, tf));
+            gameModel.explodes.add(new Explode(ex, ey, gameModel));
 
         }
     }
