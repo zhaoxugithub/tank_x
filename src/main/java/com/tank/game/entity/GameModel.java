@@ -13,30 +13,35 @@ import java.util.List;
  */
 public class GameModel {
 
-
     private Tank tank = new Tank(200, 200, Dir.DOWN, this, Group.GOOD);
-    //子弹容器
-    List<Bullet> bulletList = new ArrayList<Bullet>();
-    //爆炸容器
-    List<Explode> explodes = new ArrayList<Explode>();
-    //坦克容器
-    List<Tank> tanks = new ArrayList<Tank>();
 
+    //将坦克、子弹、爆炸 放在同一个集合中
+    private List<GameObject> objects = new ArrayList<>();
+
+    ColliderChain colliderChain = new ColliderChain();
 
     public GameModel() {
         int tankNum = ConfigUtil.getInteger("tankNum");
 
         for (int i = 0; i < tankNum; i++) {
-            tanks.add(new Tank(100 + i * 80, 400, Dir.DOWN, this, Group.BAD));
+            objects.add(new Tank(100 + i * 80, 400, Dir.DOWN, this, Group.BAD));
         }
+    }
+
+    public void addObject(GameObject object) {
+        this.objects.add(object);
+    }
+
+    public void remove(GameObject object) {
+        this.objects.remove(object);
     }
 
 
     public void paint(Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.RED);
-        g.drawString("打出子弹个数：" + bulletList.size(), 10, 60);
-        g.drawString("剩余敌方坦克：" + tanks.size(), 200, 60);
+//        g.drawString("打出子弹个数：" + bulletList.size(), 10, 60);
+//        g.drawString("剩余敌方坦克：" + tanks.size(), 200, 60);
         g.setColor(color);
 
         //把画自己的逻辑放在tank里面，更加方便，提现了面向对象的封装性
@@ -45,30 +50,24 @@ public class GameModel {
         tank.paint(g);
 
         //生成子弹数量
-        for (int i = 0; i < bulletList.size(); i++) {
-            bulletList.get(i).paint(g);
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).paint(g);
         }
-
-        //生成敌方坦克个数
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-
-        //生成爆炸类
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
+        for (int i = 0; i < objects.size(); i++) {
+            for (int j = i + 1; j < objects.size(); j++) {
+                colliderChain.collide(objects.get(i), objects.get(j));
+            }
         }
 
 
         //判断子弹和坦克是否发生碰撞
-        for (int i = 0; i < bulletList.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bulletList.get(i).collideWith(tanks.get(j));
-            }
-        }
+//        for (int i = 0; i < bulletList.size(); i++) {
+//            for (int j = 0; j < tanks.size(); j++) {
+//                bulletList.get(i).collideWith(tanks.get(j));
+//            }
+//        }
 
     }
-
 
     public Tank getMainTank() {
         return tank;

@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * 爆炸类
  */
-public class Explode {
+public class Explode extends GameObject {
 
     private int x, y;
     public static int WIDTH = ResourceManager.explodes[0].getWidth();
@@ -25,6 +25,7 @@ public class Explode {
         this.gameModel = gameModel;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) return;
         g.drawImage(ResourceManager.explodes[step++], this.x, this.y, null);

@@ -1,14 +1,11 @@
 package com.tank.game.entity;
 
 import com.tank.enums.Dir;
-import com.tank.enums.Group;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {

@@ -8,8 +8,7 @@ import com.tank.util.ResourceManager;
 
 import java.awt.*;
 
-public class Bullet {
-
+public class Bullet extends GameObject {
     //子弹速度
     private static final int SPEED = ConfigUtil.getInteger("bulletSpeed");
     private int x, y;
@@ -40,13 +39,14 @@ public class Bullet {
         rectangle.width = BADWIDTH;
         rectangle.height = BADHEIGHT;
 
-        gameModel.bulletList.add(this);
+        gameModel.addObject(this);
     }
 
+    @Override
     public void paint(Graphics g) {
 
         if (!isLive) {
-            this.gameModel.bulletList.remove(this);
+            this.gameModel.remove(this);
         }
 
         switch (dir) {
@@ -89,7 +89,6 @@ public class Bullet {
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
             this.isLive = false;
         }
-
         rectangle.x = this.x;
         rectangle.y = this.y;
     }
@@ -99,10 +98,9 @@ public class Bullet {
     }
 
     //坦克和子弹的碰撞
-    public void collideWith(Tank tank) {
+    public boolean collideWith(Tank tank) {
 
-        if (this.group == tank.getGroup()) return;
-
+        if (this.group == tank.getGroup()) return false;
         //如果子弹和坦克繁盛碰撞
         if (rectangle.intersects(tank.rectangle)) {
 
@@ -112,8 +110,9 @@ public class Bullet {
 
             int ex = tank.getX() + Tank.BADWIDTH / 2 - Explode.WIDTH / 2;
             int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.explodes.add(new Explode(ex, ey, gameModel));
-
+            gameModel.addObject(new Explode(ex, ey, gameModel));
+            return true;
         }
+        return true;
     }
 }

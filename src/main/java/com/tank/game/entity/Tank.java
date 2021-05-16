@@ -15,9 +15,11 @@ import java.util.Random;
 /**
  * 测试
  */
-public class Tank {
+public class Tank extends GameObject {
     //坦克位置
     private int x, y;
+    //坦克上一步的移动方向
+    private int oldX, oldY;
     //坦克方向
     public Dir dir = Dir.DOWN;
     //坦克速度，步进
@@ -78,6 +80,10 @@ public class Tank {
         return y;
     }
 
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
     public Tank(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
         this.y = y;
@@ -91,16 +97,7 @@ public class Tank {
         rectangle.height = BADHEIGHT;
 
         if (this.getGroup() == Group.GOOD) {
-            String goodFs = ConfigUtil.getString("goodFS");
-            try {
-                fs = (FireStrategy) Class.forName(goodFs).newInstance();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            }
+            fs = (FireStrategy) ConfigUtil.getObject("goodFS");
         } else {
             fs = new DefaultFireStrategy();
         }
@@ -123,10 +120,11 @@ public class Tank {
     }
 
     //生成或者画出一个坦克
+    @Override
     public void paint(Graphics g) {
 
         if (!isLiving()) {
-            gameModel.tanks.remove(this);
+            gameModel.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -148,7 +146,8 @@ public class Tank {
     }
 
     private void move() {
-
+        oldX = x;
+        oldY = y;
         if (!moving) return;
         switch (dir) {
             case LEFT:
@@ -192,20 +191,16 @@ public class Tank {
      * 为了方便调试工厂模式，暂时停用策略模式，注释掉fs.fire()方法，将默认的fire方法拷贝到下面的fire方法中
      */
     public void fire() {
-//        fs.fire(this);
-        int bx, by;
-        if (this.getGroup() == Group.GOOD) {
-            bx = this.getX() + Tank.GOODWIDTH / 2 - Bullet.GOODWIDTH / 2;
-            by = this.getY() + Tank.GOODHEIGHT / 2 - Bullet.GOODHEIGHT / 2;
-        } else {
-            bx = this.getX() + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
-            by = this.getY() + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
-        }
-        new Bullet(bx, by, this.dir, gameModel, this.getGroup());
-        if (this.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+        fs.fire(this);
     }
 
     public void die() {
         this.setLiving(false);
+    }
+
+    //让坦克反向进行
+    public void backMoving() {
+        this.x = oldX;
+        this.y = oldY;
     }
 }
