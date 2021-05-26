@@ -1,4 +1,8 @@
-package com.tank.game.entity;
+package com.tank.game.cor;
+
+import com.tank.game.entity.Bullet;
+import com.tank.game.entity.GameObject;
+import com.tank.game.entity.Tank;
 
 public class BulletTankCollider implements Collider {
     @Override

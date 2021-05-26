@@ -1,12 +1,14 @@
-package com.tank.game;
+package com.tank.game.strategy;
 
-import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.game.entity.Bullet;
 import com.tank.game.entity.Tank;
 import com.tank.util.Audio;
 
-public class FourFireStrategy implements FireStrategy {
+/**
+ * 坦克的默认开火方式
+ */
+public class DefaultFireStrategy implements FireStrategy {
     @Override
     public void fire(Tank tank) {
         int bx, by;
@@ -17,10 +19,9 @@ public class FourFireStrategy implements FireStrategy {
             bx = tank.getX() + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
             by = tank.getY() + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
         }
-        Dir[] values = Dir.values();
-        for (Dir dir : values) {
-            Bullet bullet = new Bullet(bx, by, dir, tank.gameModel, tank.getGroup());
-        }
+
+        new Bullet(bx, by, tank.dir, tank.getGroup());
+
         if (tank.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
 }

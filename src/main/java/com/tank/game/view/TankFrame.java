@@ -1,6 +1,8 @@
-package com.tank.game.entity;
+package com.tank.game.view;
 
 import com.tank.enums.Dir;
+import com.tank.game.control.GameModel;
+import com.tank.game.entity.Tank;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 
@@ -11,7 +13,6 @@ import java.awt.event.*;
 public class TankFrame extends Frame {
 
     //添加一个门面成员对象，后面专门和门面成员对象打交道
-    public GameModel gameModel = new GameModel();
 
     public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
 
@@ -35,7 +36,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        gameModel.paint(g);
+        GameModel.getInstance().paint(g);
     }
 
     Image offScreenImage = null;
@@ -107,7 +108,7 @@ public class TankFrame extends Frame {
                     bd = false;
                     break;
                 case KeyEvent.VK_Z:
-                    gameModel.getMainTank().fire();
+                    GameModel.getInstance().getMainTank().fire();
                     break;
                 default:
                     break;
@@ -117,7 +118,7 @@ public class TankFrame extends Frame {
 
         private void setMainTankDir() {
 
-            Tank mainTank = gameModel.getMainTank();
+            Tank mainTank = GameModel.getInstance().getMainTank();
             //如果没有按下方向键，就静止
             if (!br && !bl && !bu && !bd) {
                 mainTank.setMoving(false);

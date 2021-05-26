@@ -1,6 +1,6 @@
 package com.tank;
 
-import com.tank.game.entity.TankFrame;
+import com.tank.game.view.TankFrame;
 
 public class Main {
 

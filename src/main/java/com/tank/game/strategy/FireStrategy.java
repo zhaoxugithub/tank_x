@@ -1,4 +1,4 @@
-package com.tank.game;
+package com.tank.game.strategy;
 
 import com.tank.game.entity.Tank;
 

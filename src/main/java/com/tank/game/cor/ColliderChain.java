@@ -1,5 +1,6 @@
-package com.tank.game.entity;
+package com.tank.game.cor;
 
+import com.tank.game.entity.GameObject;
 import com.tank.util.ConfigUtil;
 
 import java.util.LinkedList;

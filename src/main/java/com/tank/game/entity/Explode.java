@@ -1,5 +1,6 @@
 package com.tank.game.entity;
 
+import com.tank.game.control.GameModel;
 import com.tank.util.ResourceManager;
 
 import java.awt.*;
@@ -13,16 +14,14 @@ public class Explode extends GameObject {
     public static int WIDTH = ResourceManager.explodes[0].getWidth();
     public static int HEIGHT = ResourceManager.explodes[0].getHeight();
 
-    GameModel gameModel;
 
     private boolean living = true;
 
     private int step = 0;
 
-    public Explode(int x, int y, GameModel gameModel) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
     }
 
     @Override

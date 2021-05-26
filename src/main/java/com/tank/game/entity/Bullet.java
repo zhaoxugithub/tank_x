@@ -2,6 +2,8 @@ package com.tank.game.entity;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
+import com.tank.game.control.GameModel;
+import com.tank.game.view.TankFrame;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
@@ -23,15 +25,13 @@ public class Bullet extends GameObject {
 
     public Rectangle rectangle = new Rectangle();
 
-    public GameModel gameModel;
 
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, GameModel gameModel, Group group) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gameModel = gameModel;
         this.group = group;
 
         rectangle.x = this.x;
@@ -39,14 +39,14 @@ public class Bullet extends GameObject {
         rectangle.width = BADWIDTH;
         rectangle.height = BADHEIGHT;
 
-        gameModel.addObject(this);
+        GameModel.getInstance().addObject(this);
     }
 
     @Override
     public void paint(Graphics g) {
 
         if (!isLive) {
-            this.gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         switch (dir) {
@@ -110,7 +110,7 @@ public class Bullet extends GameObject {
 
             int ex = tank.getX() + Tank.BADWIDTH / 2 - Explode.WIDTH / 2;
             int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.addObject(new Explode(ex, ey, gameModel));
+            GameModel.getInstance().addObject(new Explode(ex, ey));
             return true;
         }
         return true;

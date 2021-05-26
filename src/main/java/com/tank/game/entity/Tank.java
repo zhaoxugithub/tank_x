@@ -3,9 +3,10 @@ package com.tank.game.entity;
 
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
-import com.tank.game.DefaultFireStrategy;
-import com.tank.game.FireStrategy;
-import com.tank.util.Audio;
+import com.tank.game.control.GameModel;
+import com.tank.game.strategy.DefaultFireStrategy;
+import com.tank.game.strategy.FireStrategy;
+import com.tank.game.view.TankFrame;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
@@ -41,8 +42,6 @@ public class Tank extends GameObject {
 
     //生产随机数
     private Random random = new Random();
-
-    public GameModel gameModel;
 
     private Group group = Group.BAD;
 
@@ -84,11 +83,10 @@ public class Tank extends GameObject {
         return rectangle;
     }
 
-    public Tank(int x, int y, Dir dir, GameModel gameModel, Group group) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gameModel = gameModel;
         this.group = group;
 
         rectangle.x = this.x;
@@ -124,7 +122,7 @@ public class Tank extends GameObject {
     public void paint(Graphics g) {
 
         if (!isLiving()) {
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir) {
             case LEFT:

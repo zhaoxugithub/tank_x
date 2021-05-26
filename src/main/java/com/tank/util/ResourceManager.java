@@ -18,6 +18,8 @@ public class ResourceManager {
 
     public static BufferedImage[] explodes = new BufferedImage[16];
 
+    public static BufferedImage wall;
+
     static {
         try {
             //好坦克图片加载
@@ -45,6 +47,9 @@ public class ResourceManager {
             for (int i = 0; i < 16; i++) {
                 explodes[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/e" + (i + 1) + ".gif"));
             }
+
+            //墙图片加载
+            wall = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/square0.jpg"));
 
         } catch (IOException e) {
             e.printStackTrace();
