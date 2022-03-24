@@ -30,6 +30,7 @@ public class TankFrame extends Frame {
 
 
     public TankFrame() {
+        //开启windows窗口
         setVisible(true);
         setResizable(false);
         setTitle("Tank war");
