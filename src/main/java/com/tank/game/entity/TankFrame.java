@@ -6,14 +6,17 @@ import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
 
-    public Tank tank = new Tank(200, 200, Dir.DOWN, this, Group.GOOD);
+    public Tank tank = new Tank(200, 200, Dir.DOWN, false, this, Group.GOOD);
     //子弹容器
     public List<Bullet> bulletList = new ArrayList<Bullet>();
     //爆炸容器
@@ -130,6 +133,7 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            // 坦克摁下也要设置方向
             setMainTankDir();
             new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
         }
@@ -157,9 +161,13 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            // 案件放下要设置tank方向
             setMainTankDir();
         }
 
+        /**
+         * 设置坦克方向
+         */
         private void setMainTankDir() {
             //如果没有按下方向键，就静止
             if (!br && !bl && !bu && !bd) {

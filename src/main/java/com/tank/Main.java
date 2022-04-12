@@ -14,12 +14,13 @@ public class Main {
         int tankNum = ConfigUtil.getInteger("tankNum");
 
         for (int i = 0; i < tankNum; i++) {
-            tankFrame.tanks.add(new Tank(100 + i * 80, 400, Dir.DOWN, tankFrame, Group.BAD));
+            tankFrame.tanks.add(new Tank(100 + i * 80, 400, Dir.DOWN,true, tankFrame, Group.BAD));
         }
 
         while (true) {
             Thread.sleep(25);
             tankFrame.repaint();
         }
+
     }
 }

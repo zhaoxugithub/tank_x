@@ -5,7 +5,6 @@ import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.game.DefaultFireStrategy;
 import com.tank.game.FireStrategy;
-import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
 
@@ -15,7 +14,7 @@ import java.util.Random;
 /**
  * 测试
  */
-public class Tank{
+public class Tank {
     //坦克位置
     private int x, y;
     //坦克方向
@@ -102,8 +101,14 @@ public class Tank{
                 e.printStackTrace();
             }
         } else {
+            // 默认开火方式
             fs = new DefaultFireStrategy();
         }
+    }
+
+    public Tank(int x, int y, Dir dir, boolean move, TankFrame tf, Group group) {
+        this(x, y, dir, tf, group);
+        this.moving = move;
     }
 
     public boolean isMoving() {
@@ -192,17 +197,7 @@ public class Tank{
      * 为了方便调试工厂模式，暂时停用策略模式，注释掉fs.fire()方法，将默认的fire方法拷贝到下面的fire方法中
      */
     public void fire() {
-//        fs.fire(this);
-        int bx, by;
-        if (this.getGroup() == Group.GOOD) {
-            bx = this.getX() + Tank.GOODWIDTH / 2 - Bullet.GOODWIDTH / 2;
-            by = this.getY() + Tank.GOODHEIGHT / 2 - Bullet.GOODHEIGHT / 2;
-        } else {
-            bx = this.getX() + Tank.BADWIDTH / 2 - Bullet.BADWIDTH / 2;
-            by = this.getY() + Tank.BADHEIGHT / 2 - Bullet.BADHEIGHT / 2;
-        }
-        new Bullet(bx, by, this.dir, this.tf, this.getGroup());
-        if (this.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+        fs.fire(this);
     }
 
     public void die() {
