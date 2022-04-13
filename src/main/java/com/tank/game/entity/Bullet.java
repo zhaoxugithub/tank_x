@@ -42,6 +42,11 @@ public class Bullet {
         tf.bulletList.add(this);
     }
 
+
+    public Group getGroup() {
+        return group;
+    }
+
     public void paint(Graphics g) {
 
         if (!isLive) {

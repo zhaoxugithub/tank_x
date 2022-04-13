@@ -26,6 +26,8 @@ public class TankFrame extends Frame {
 
     public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
 
+    private static final int BULLETNUM = ConfigUtil.getInteger("bulletNum");
+
     //定义抽象工厂,采用默认工厂生产默认的
 //    public GameFactory gameFactory = new DefaultFactory();
     //如果想要换成其他的爆炸形式，可以采用以下的工厂
@@ -50,11 +52,25 @@ public class TankFrame extends Frame {
         });
     }
 
+    public int computerGoodBullets() {
+        int num = 0;
+        for (Bullet bullet : bulletList) {
+            if (bullet.getGroup().equals(Group.GOOD)) {
+                num++;
+            }
+        }
+        return BULLETNUM - num;
+    }
+
+    public boolean isHasBullets() {
+        return false;
+    }
+
     @Override
     public void paint(Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.RED);
-        g.drawString("打出子弹个数：" + bulletList.size(), 10, 60);
+        g.drawString("剩余子弹个数：" + computerGoodBullets(), 10, 60);
         g.drawString("剩余敌方坦克：" + tanks.size(), 200, 60);
         g.setColor(color);
 
