@@ -21,6 +21,5 @@ public class Main {
             Thread.sleep(25);
             tankFrame.repaint();
         }
-
     }
 }

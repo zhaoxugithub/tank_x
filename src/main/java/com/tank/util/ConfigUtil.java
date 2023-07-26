@@ -18,7 +18,8 @@ public class ConfigUtil {
         }
     }
 
-    private ConfigUtil(){}
+    private ConfigUtil() {
+    }
 
     public static Object get(String key) {
         if (props == null) return null;
