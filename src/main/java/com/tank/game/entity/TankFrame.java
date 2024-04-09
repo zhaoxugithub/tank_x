@@ -1,5 +1,6 @@
 package com.tank.game.entity;
 
+import com.google.common.collect.Lists;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.util.Audio;
@@ -18,22 +19,20 @@ public class TankFrame extends Frame {
 
     public Tank tank = new Tank(200, 200, Dir.DOWN, false, this, Group.GOOD);
     //子弹容器
-    public List<Bullet> bulletList = new ArrayList<Bullet>();
+    public List<Bullet> bulletList = Lists.newArrayList();
     //爆炸容器
-    public List<Explode> explodes = new ArrayList<Explode>();
+    public List<Explode> explodes = Lists.newArrayList();
     //坦克容器
-    public List<Tank> tanks = new ArrayList<Tank>();
-
-    public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth"), GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
-
+    public List<Tank> tanks = Lists.newArrayList();
+    //
+    public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth");
+    public static final int GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
     private static final int BULLETNUM = ConfigUtil.getInteger("bulletNum");
 
-    //定义抽象工厂,采用默认工厂生产默认的
-//    public GameFactory gameFactory = new DefaultFactory();
-    //如果想要换成其他的爆炸形式，可以采用以下的工厂
-//    public GameFactory gameFactory = new RectFactory();
-
-
+    // 定义抽象工厂,采用默认工厂生产默认的
+    // public GameFactory gameFactory = new DefaultFactory();
+    // 如果想要换成其他的爆炸形式，可以采用以下的工厂
+    // public GameFactory gameFactory = new RectFactory();
     public TankFrame() {
         //开启windows窗口
         setVisible(true);
