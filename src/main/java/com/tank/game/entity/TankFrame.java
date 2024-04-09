@@ -16,7 +16,6 @@ import java.util.List;
 
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
-
     public Tank tank = new Tank(200, 200, Dir.DOWN, false, this, Group.GOOD);
     //子弹容器
     public List<Bullet> bulletList = Lists.newArrayList();
@@ -24,7 +23,6 @@ public class TankFrame extends Frame {
     public List<Explode> explodes = Lists.newArrayList();
     //坦克容器
     public List<Tank> tanks = Lists.newArrayList();
-    //
     public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth");
     public static final int GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
     private static final int BULLETNUM = ConfigUtil.getInteger("bulletNum");
@@ -72,28 +70,21 @@ public class TankFrame extends Frame {
         g.drawString("剩余子弹个数：" + computerGoodBullets(), 10, 60);
         g.drawString("剩余敌方坦克：" + tanks.size(), 200, 60);
         g.setColor(color);
-
         //把画自己的逻辑放在tank里面，更加方便，提现了面向对象的封装性
-
         //生产己方坦克
         tank.paint(g);
-
         //生成子弹数量
         for (int i = 0; i < bulletList.size(); i++) {
             bulletList.get(i).paint(g);
         }
-
         //生成敌方坦克个数
         for (int i = 0; i < tanks.size(); i++) {
             tanks.get(i).paint(g);
         }
-
         //生成爆炸类
         for (int i = 0; i < explodes.size(); i++) {
             explodes.get(i).paint(g);
         }
-
-
         //判断子弹和坦克是否发生碰撞
         for (int i = 0; i < bulletList.size(); i++) {
             for (int j = 0; j < tanks.size(); j++) {
@@ -128,11 +119,8 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-
             int keyCode = e.getKeyCode();
-
             switch (keyCode) {
-
                 case KeyEvent.VK_LEFT:
                     bl = true;
                     break;

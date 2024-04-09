@@ -23,26 +23,19 @@ public class Tank {
     private static final int SPEED = ConfigUtil.getInteger("tankSpeed");
     //判断坦克 是否移动，默认是静止
     private boolean moving = true;
-
     //判断坦克是否存活
     private boolean living = true;
-
     //获取坦克的宽度和高度
     public static int GOODWIDTH = ResourceManager.goodTankL.getWidth();
     public static int GOODHEIGHT = ResourceManager.goodTankL.getHeight();
 
     public static int BADWIDTH = ResourceManager.badTankL.getWidth();
     public static int BADHEIGHT = ResourceManager.badTankL.getHeight();
-
     public Rectangle rectangle = new Rectangle();
-
     //生产随机数
     private Random random = new Random();
-
     public TankFrame tf = null;
-
     private Group group = Group.BAD;
-
     private FireStrategy fs = null;
 
     public void setGroup(Group group) {
@@ -129,7 +122,6 @@ public class Tank {
 
     //生成或者画出一个坦克
     public void paint(Graphics g) {
-
         if (!isLiving()) {
             tf.tanks.remove(this);
         }
