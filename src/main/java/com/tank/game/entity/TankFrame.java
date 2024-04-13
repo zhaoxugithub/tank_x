@@ -16,7 +16,6 @@ import java.util.List;
 
 //集成frame 之后才能有构造里面的方法
 public class TankFrame extends Frame {
-
     public Tank tank = new Tank(200, 200, Dir.DOWN, false, this, Group.GOOD);
     //子弹容器
     public List<Bullet> bulletList = Lists.newArrayList();
@@ -93,7 +92,6 @@ public class TankFrame extends Frame {
             explodes.get(i).paint(g);
         }
 
-
         //判断子弹和坦克是否发生碰撞
         for (int i = 0; i < bulletList.size(); i++) {
             for (int j = 0; j < tanks.size(); j++) {
@@ -125,7 +123,6 @@ public class TankFrame extends Frame {
         boolean br = false;
         boolean bu = false;
         boolean bd = false;
-
         @Override
         public void keyPressed(KeyEvent e) {
 
@@ -153,6 +150,7 @@ public class TankFrame extends Frame {
             new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
         }
 
+        //ss
         @Override
         public void keyReleased(KeyEvent e) {
             int keyCode = e.getKeyCode();
