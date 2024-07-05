@@ -23,9 +23,9 @@ public class TankFrame extends Frame {
     public List<Explode> explodes = Lists.newArrayList();
     //坦克容器
     public List<Tank> tanks = Lists.newArrayList();
-    public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth");
-    public static final int GAME_HEIGHT = ConfigUtil.getInteger("gameHeight");
-    private static final int BULLETNUM = ConfigUtil.getInteger("bulletNum");
+    public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth", 800);
+    public static final int GAME_HEIGHT = ConfigUtil.getInteger("gameHeight",   600);
+    private static final int BULLET_NUM = ConfigUtil.getInteger("bulletNum", 10);
 
     // 定义抽象工厂,采用默认工厂生产默认的
     // public GameFactory gameFactory = new DefaultFactory();
@@ -56,7 +56,7 @@ public class TankFrame extends Frame {
                 num++;
             }
         }
-        return BULLETNUM - num;
+        return BULLET_NUM - num;
     }
 
     public boolean isHasBullets() {
@@ -111,7 +111,6 @@ public class TankFrame extends Frame {
     }
 
     class MyKeyAdapter extends KeyAdapter {
-
         boolean bl = false;
         boolean br = false;
         boolean bu = false;

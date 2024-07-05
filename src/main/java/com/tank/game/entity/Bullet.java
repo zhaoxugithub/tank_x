@@ -11,7 +11,7 @@ import java.awt.*;
 public class Bullet {
 
     //子弹速度
-    private static final int SPEED = ConfigUtil.getInteger("bulletSpeed");
+    private static final int SPEED = ConfigUtil.getInteger("bulletSpeed", 10);
     private int x, y;
     private Dir dir;
     private boolean isLive = true;

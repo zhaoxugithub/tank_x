@@ -20,7 +20,7 @@ public class Tank {
     //坦克方向
     public Dir dir = Dir.DOWN;
     //坦克速度，步进
-    private static final int SPEED = ConfigUtil.getInteger("tankSpeed");
+    private static final int SPEED = ConfigUtil.getInteger("tankSpeed", 10);
     //判断坦克 是否移动，默认是静止
     private boolean moving = true;
     //判断坦克是否存活
@@ -83,7 +83,7 @@ public class Tank {
         rectangle.height = BADHEIGHT;
 
         if (this.getGroup() == Group.GOOD) {
-            String goodFs = ConfigUtil.getString("goodFS");
+            String goodFs = ConfigUtil.getString("goodFS", "com.tank.game.DefaultFireStrategy");
             try {
                 fs = (FireStrategy) Class.forName(goodFs).newInstance();
             } catch (ClassNotFoundException e) {
