@@ -1,5 +1,6 @@
 package com.tank.game.entity;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.util.Audio;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 
 import static com.tank.util.TankWarConfig.*;
@@ -50,9 +52,9 @@ public class Bullet {
 
     public void paint(Graphics g) {
 
-        if (!isLive) {
-            this.tf.getBulletList().remove(this);
-        }
+//        if (!isLive) {
+//            this.tf.getBulletList().remove(this);
+//        }
 
         switch (dir) {
             case LEFT:

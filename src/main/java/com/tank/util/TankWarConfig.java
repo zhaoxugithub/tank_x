@@ -1,5 +1,8 @@
 package com.tank.util;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class TankWarConfig {
     public static final int GAME_WIDTH = ConfigUtil.getInteger("gameWidth", 800);
     public static final int GAME_HEIGHT = ConfigUtil.getInteger("gameHeight", 600);
@@ -22,4 +25,15 @@ public class TankWarConfig {
 
     //坦克速度，步进
     public static final int SPEED = ConfigUtil.getInteger("tankSpeed", 10);
+
+
+    private static final ExecutorService audioTankMoveExecutorService;
+
+    static {
+        audioTankMoveExecutorService = Executors.newCachedThreadPool();
+    }
+
+    public static void playAudio() {
+        audioTankMoveExecutorService.execute(() -> new Audio("audio/explode.wav").play());
+    }
 }

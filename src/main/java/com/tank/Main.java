@@ -21,9 +21,5 @@ public class Main {
             list.add(tank);
         }
         tankFrame.setComputerTanks(list);
-        while (true) {
-            Thread.sleep(25);
-            tankFrame.repaint();
-        }
     }
 }

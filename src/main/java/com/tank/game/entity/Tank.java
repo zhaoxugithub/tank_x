@@ -65,9 +65,9 @@ public class Tank {
 
     //生成或者画出一个坦克
     public void paint(Graphics g) {
-        if (!isLiving()) {
-            tf.getComputerTanks().remove(this);
-        }
+//        if (!isLiving()) {
+//            tf.getComputerTanks().remove(this);
+//        }
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankL : ResourceManager.badTankL, this.x,
