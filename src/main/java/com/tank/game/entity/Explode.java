@@ -1,12 +1,18 @@
 package com.tank.game.entity;
 
 import com.tank.util.ResourceManager;
+import lombok.Data;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 
 /**
  * 爆炸类
  */
+@ToString
+@Data
+@Slf4j
 public class Explode {
 
     private int x, y;

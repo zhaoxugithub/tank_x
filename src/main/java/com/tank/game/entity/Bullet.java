@@ -5,9 +5,16 @@ import com.tank.enums.Group;
 import com.tank.util.Audio;
 import com.tank.util.ConfigUtil;
 import com.tank.util.ResourceManager;
+import lombok.Data;
+import lombok.ToString;
 
 import java.awt.*;
+import java.util.List;
 
+import static com.tank.util.TankWarConfig.*;
+
+@Data
+@ToString
 public class Bullet {
 
     //子弹速度
@@ -15,12 +22,6 @@ public class Bullet {
     private int x, y;
     private Dir dir;
     private boolean isLive = true;
-
-    public static int GOODWIDTH = ResourceManager.goodBulletD.getWidth();
-    public static int GOODHEIGHT = ResourceManager.goodBulletD.getHeight();
-
-    public static int BADWIDTH = ResourceManager.badBulletD.getWidth();
-    public static int BADHEIGHT = ResourceManager.badBulletD.getHeight();
 
     public Rectangle rectangle = new Rectangle();
     TankFrame tf = null;
@@ -36,12 +37,12 @@ public class Bullet {
 
         rectangle.x = this.x;
         rectangle.y = this.y;
-        rectangle.width = BADWIDTH;
-        rectangle.height = BADHEIGHT;
+        rectangle.width = BADBULLETWIDTH;
+        rectangle.height = BADBULLETHEIGHT;
 
-        tf.bulletList.add(this);
+        List<Bullet> bulletList = tf.getBulletList();
+        bulletList.add(this);
     }
-
 
     public Group getGroup() {
         return group;
@@ -50,21 +51,25 @@ public class Bullet {
     public void paint(Graphics g) {
 
         if (!isLive) {
-            this.tf.bulletList.remove(this);
+            this.tf.getBulletList().remove(this);
         }
 
         switch (dir) {
             case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletL : ResourceManager.badBulletL, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletL : ResourceManager.badBulletL,
+                        this.x, this.y, null);
                 break;
             case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletR : ResourceManager.badBulletR, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletR : ResourceManager.badBulletR,
+                        this.x, this.y, null);
                 break;
             case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletU : ResourceManager.badBulletU, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletU : ResourceManager.badBulletU,
+                        this.x, this.y, null);
                 break;
             case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletD : ResourceManager.badBulletD, this.x, this.y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodBulletD : ResourceManager.badBulletD,
+                        this.x, this.y, null);
                 break;
             default:
                 break;
@@ -90,7 +95,7 @@ public class Bullet {
                 break;
         }
 
-        if (x < 0 || y < 0 || x > tf.GAME_WIDTH || y > tf.GAME_HEIGHT) {
+        if (x < 0 || y < 0 || x > GAME_WIDTH || y > GAME_HEIGHT) {
             this.isLive = false;
         }
 
@@ -104,21 +109,16 @@ public class Bullet {
 
     //坦克和子弹的碰撞
     public void collideWith(Tank tank) {
-
         if (this.group == tank.getGroup()) return;
-
         //如果子弹和坦克繁盛碰撞
-        if (rectangle.intersects(tank.rectangle)) {
-
+        if (rectangle.intersects(tank.getRectangle())) {
             new Thread(() -> new Audio("audio/explode.wav").play()).start();
             tank.die();
             this.die();
-
-            int ex = tank.getX() + Tank.BADWIDTH / 2 - Explode.WIDTH / 2;
-            int ey = tank.getY() + Tank.BADHEIGHT / 2 - Explode.HEIGHT / 2;
+            int ex = tank.getX() + BADBULLETWIDTH / 2 - Explode.WIDTH / 2;
+            int ey = tank.getY() + BADBULLETWIDTH / 2 - Explode.HEIGHT / 2;
 //            BaseExplode explode = tf.gameFactory.createExplode(ex, ey, tf);
-            tf.explodes.add(new Explode(ex, ey, tf));
-
+            tf.getExplodes().add(new Explode(ex, ey, tf));
         }
     }
 }

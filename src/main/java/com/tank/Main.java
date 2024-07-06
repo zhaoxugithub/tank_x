@@ -8,7 +8,6 @@ import com.tank.game.entity.TankFrame;
 import com.tank.util.ConfigUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
@@ -21,7 +20,7 @@ public class Main {
             Tank tank = new Tank(100 + i * 80, 400, Dir.DOWN, true, tankFrame, Group.BAD);
             list.add(tank);
         }
-        tankFrame.tanks = list;
+        tankFrame.setComputerTanks(list);
         while (true) {
             Thread.sleep(25);
             tankFrame.repaint();
