@@ -21,7 +21,7 @@ public class DefaultFireStrategy implements FireStrategy {
             bx = tank.getX() + BADTANKWIDTH / 2 - BADBULLETWIDTH / 2;
             by = tank.getY() + BADTANKWIDTH / 2 - BADBULLETHEIGHT / 2;
         }
-        new Bullet(bx, by, tank.getDir(), tank.getTf(), tank.getGroup());
+        new Bullet(bx, by, tank.getDir(), tank.getGroup());
         if (tank.getGroup() == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
     }
 }

@@ -25,36 +25,22 @@ public class Bullet {
     private Dir dir;
     private boolean isLive = true;
 
-    public Rectangle rectangle = new Rectangle();
-    TankFrame tf = null;
+    public Rectangle rectangle;
 
-    private Group group = Group.BAD;
+    private Group group;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
         this.group = group;
-
-        rectangle.x = this.x;
-        rectangle.y = this.y;
-        rectangle.width = BADBULLETWIDTH;
-        rectangle.height = BADBULLETHEIGHT;
+        rectangle = new Rectangle(x, y, BADBULLETWIDTH, BADBULLETHEIGHT);
 
         List<Bullet> bulletList = tf.getBulletList();
         bulletList.add(this);
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
     public void paint(Graphics g) {
-
-//        if (!isLive) {
-//            this.tf.getBulletList().remove(this);
-//        }
 
         switch (dir) {
             case LEFT:
@@ -120,7 +106,7 @@ public class Bullet {
             int ex = tank.getX() + BADBULLETWIDTH / 2 - Explode.WIDTH / 2;
             int ey = tank.getY() + BADBULLETWIDTH / 2 - Explode.HEIGHT / 2;
 //            BaseExplode explode = tf.gameFactory.createExplode(ex, ey, tf);
-            tf.getExplodes().add(new Explode(ex, ey, tf));
+            tf.getExplodes().add(new Explode(ex, ey));
         }
     }
 }
