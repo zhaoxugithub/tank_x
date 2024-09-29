@@ -77,8 +77,8 @@ public class Tank {
     }
 
     private void tankMove() {
-        computerTankMove();
         //敌方坦克的随机方向
+        computerTankMove();
         //坦克开除边界检测
         boundsCheck();
         rectangle.setLocation(x, y);

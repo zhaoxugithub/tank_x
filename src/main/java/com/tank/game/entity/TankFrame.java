@@ -2,31 +2,23 @@ package com.tank.game.entity;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.tank.enums.Dir;
 import com.tank.enums.Group;
 import com.tank.game.DefaultFireStrategy;
 import com.tank.game.adapter.MyKeyAdapter;
-import com.tank.util.Audio;
-import com.tank.util.ConfigUtil;
-import com.tank.util.TankWarConfig;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 import static com.tank.util.TankWarConfig.*;
 
